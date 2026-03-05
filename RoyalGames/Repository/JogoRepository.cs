@@ -1,7 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using RoyalGames.Contexts;
 using RoyalGames.Domains;
+using RoyalGames.DTOs.JogoDto;
 using RoyalGames.Interfaces;
+using RoyalGames.Repository;
 
 namespace RoyalGames.Repository
 {
@@ -67,7 +69,7 @@ namespace RoyalGames.Repository
             jogo.Genero = generos;
 
             List<Plataforma> plataformas = _context.Plataforma
-                .Where(p => plataformaId.Contains(g.PlataformaID))
+                .Where(p => plataformaId.Contains(p.PlataformaID))
                 .ToList();
 
             jogo.Plataforma = plataformas;
@@ -77,7 +79,7 @@ namespace RoyalGames.Repository
             _context.SaveChanges();
         }
 
-        public void Atualizar(Jogo jogo)
+        public void Atualizar(Jogo jogo, List<int> generoId, List<int> plataformaId)
         {
             Jogo? jogoBanco = _context.Jogo.FirstOrDefault(j => j.JogoID == jogo.JogoID);
 
@@ -91,7 +93,7 @@ namespace RoyalGames.Repository
             _context.SaveChanges();
         }
 
-        void Remover(int id)
+        public void Remover(int id)
         {
             Jogo? jogo = _context.Jogo.FirstOrDefault(jogo => jogo.JogoID == id);
 
@@ -102,6 +104,11 @@ namespace RoyalGames.Repository
 
             _context.Jogo.Remove(jogo);
             _context.SaveChanges();
+        }
+
+        public void Adicionar(CriarJogoDto jogo, string genero)
+        {
+            throw new NotImplementedException();
         }
     }
 }
