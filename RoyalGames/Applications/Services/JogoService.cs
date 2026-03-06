@@ -182,6 +182,18 @@ namespace RoyalGames.Applications.Services
             return JogoParaDto.ConverterParaDto(jogoBanco);
         }
 
+        public byte[] ObterImagem(int id)
+        {
+            byte[] imagem = _repository.ObterImagem(id);
+
+            if (imagem == null || imagem.Length == 0)
+            {
+                throw new DomainException("Imagem não encontrada");
+            }
+
+            return imagem;
+        }
+
         public void Remover(int id)
         {
             HorarioAlteracaoJogo.ValidarHorario();
