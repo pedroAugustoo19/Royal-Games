@@ -3,8 +3,11 @@ using RoyalGames.DTOs.JogoDto;
 using RoyalGames.Exceptions;
 using RoyalGames.Interfaces;
 using RoyalGames.Repository;
+<<<<<<< HEAD
 using RoyalGames.Applications.Regras;
 using RoyalGames.Applications.Conversoes;
+=======
+>>>>>>> 728cd3bd01a76e008714cb052266bbc1ae2a28aa
 
 namespace RoyalGames.Applications.Services
 {
@@ -82,14 +85,24 @@ namespace RoyalGames.Applications.Services
                 throw new DomainException("Descrição é obrigatória.");
             }
 
+<<<<<<< HEAD
             if (jogoDto.PlataformaId == null)
+=======
+            if (string.IsNullOrWhiteSpace(jogoDto.Plataforma))
+>>>>>>> 728cd3bd01a76e008714cb052266bbc1ae2a28aa
             {
                 throw new DomainException("Plataforma é obrigatória.");
             }
 
+<<<<<<< HEAD
             if (jogoDto.GeneroId == null)
             {
                 throw new DomainException("Genero é obrigatório.");
+=======
+            if (string.IsNullOrWhiteSpace(jogoDto.Genero))
+            {
+                throw new DomainException("Descrição é obrigatória.");
+>>>>>>> 728cd3bd01a76e008714cb052266bbc1ae2a28aa
             }
 
             if (jogoDto.Imagem == null || jogoDto.Imagem.Length == 0)
@@ -106,6 +119,7 @@ namespace RoyalGames.Applications.Services
             }
         }
 
+<<<<<<< HEAD
         public LerJogoDto Adicionar(CriarJogoDto jogoDto, int jogoId)
         {
             ValidarJogo(jogoDto);
@@ -209,5 +223,33 @@ namespace RoyalGames.Applications.Services
         }
 
 
+=======
+        void Adicionar(CriarJogoDto criarJogoDto)
+        {
+            ValidarJogo(criarJogoDto);
+
+            if (_repository.NomeExiste(criarJogoDto.Nome))
+            {
+                throw new DomainException("Promoção já existente.");
+            }
+
+            criarJogoDto promocao = new Promocao
+            {
+                Nome
+
+                Preco
+
+                Descricao
+                Imagem 
+                Plataforma 
+
+                Genero 
+    };
+
+            _repository.Adicionar(promocao);
+        }
+        void Atualizar(Jogo jogo);
+        void Remover(int id);
+>>>>>>> 728cd3bd01a76e008714cb052266bbc1ae2a28aa
     }
 }

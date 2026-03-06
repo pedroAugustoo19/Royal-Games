@@ -1,62 +1,52 @@
-<<<<<<< HEAD
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using RoyalGames.Applications.Services;
-=======
 ﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.DataProtection.Repositories;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using RoyalGames.Applications.Services;
-using RoyalGames.DTOs.GeneroDto;
+using RoyalGames.DTOs.PlataformaDto;
 using RoyalGames.Exceptions;
->>>>>>> 728cd3bd01a76e008714cb052266bbc1ae2a28aa
 
 namespace RoyalGames.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class GeneroController : ControllerBase
+    public class PlataformaController : ControllerBase
     {
-        private readonly GeneroService _service;
+        private readonly PlataformaService _service;
 
-<<<<<<< HEAD
-        
-
-=======
-        public GeneroController(GeneroService service)
+        public PlataformaController(PlataformaService service)
         {
             _service = service;
         }
 
         [HttpGet]
-        public ActionResult<List<LerGeneroDto>>Listar()
+        public ActionResult<List<LerPlataformaDto>>Listar()
         {
-            List<LerGeneroDto> generos = _service.Listar();
-            return Ok(generos);
+            List<LerPlataformaDto> plataformas = _service.Listar();
+            return Ok(plataformas);
         }
 
         [HttpGet("{id}")]
-        public ActionResult <LerGeneroDto> ObterPorId(int id)
+        public ActionResult<LerPlataformaDto> ObterPorId(int id)
         {
-            LerGeneroDto genero = _service.ObterPorId(id);
+            LerPlataformaDto plataforma = _service.ObterPorId(id);
 
-            if( genero == null)
+            if(plataforma == null)
             {
                 return NotFound();
             }
-            
-            return Ok(genero);
+
+            return Ok(plataforma);  
         }
 
         [HttpPost]
         [Authorize]
-        public ActionResult Adicionar(CriarGeneroDto criarDto)
+
+        public ActionResult Adicionar (CriarPlataformaDto criarDto)
         {
             try
             {
                 _service.Adicionar(criarDto);
-                return StatusCode(201);
+                return Created();
             }
             catch (DomainException ex)
             {
@@ -66,8 +56,9 @@ namespace RoyalGames.Controllers
 
         [HttpPut("{id}")]
         [Authorize]
-        public ActionResult Atualizar (int id, CriarGeneroDto criarDto)
-        { 
+
+        public ActionResult Atualizar(int id, CriarPlataformaDto criarDto)
+        {
             try
             {
                 _service.Atualizar(id, criarDto);
@@ -77,23 +68,21 @@ namespace RoyalGames.Controllers
             {
                 return BadRequest(ex.Message);
             }
-              
         }
 
         [HttpDelete("{id}")]
         [Authorize]
-        public ActionResult Remover(int id)
+        public ActionResult Remover (int id)
         {
             try
             {
                 _service.Remover(id);
                 return NoContent();
             }
-            catch(DomainException ex)
+            catch (DomainException ex)
             {
                 return BadRequest(ex.Message); 
             }
         }
->>>>>>> 728cd3bd01a76e008714cb052266bbc1ae2a28aa
     }
 }

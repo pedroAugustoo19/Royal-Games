@@ -1,10 +1,17 @@
+<<<<<<< HEAD
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
+=======
+﻿using Microsoft.AspNetCore.Http;
+>>>>>>> 728cd3bd01a76e008714cb052266bbc1ae2a28aa
 using Microsoft.AspNetCore.Mvc;
 using RoyalGames.Applications.Services;
 using RoyalGames.DTOs.JogoDto;
 using RoyalGames.Exceptions;
+<<<<<<< HEAD
 using System.Security.Claims;
+=======
+>>>>>>> 728cd3bd01a76e008714cb052266bbc1ae2a28aa
 
 namespace RoyalGames.Controllers
 {
@@ -13,6 +20,7 @@ namespace RoyalGames.Controllers
     public class JogoController : ControllerBase
     {
         private readonly JogoService _service;
+<<<<<<< HEAD
 
         public JogoController(JogoService service)
         {
@@ -116,5 +124,7 @@ namespace RoyalGames.Controllers
                 return NotFound(ex.Message);
             }
         }
+=======
+>>>>>>> 728cd3bd01a76e008714cb052266bbc1ae2a28aa
     }
 }

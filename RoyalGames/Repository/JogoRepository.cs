@@ -1,9 +1,13 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using RoyalGames.Contexts;
 using RoyalGames.Domains;
+<<<<<<< HEAD
 using RoyalGames.DTOs.JogoDto;
 using RoyalGames.Interfaces;
 using RoyalGames.Repository;
+=======
+using RoyalGames.Interfaces;
+>>>>>>> 728cd3bd01a76e008714cb052266bbc1ae2a28aa
 
 namespace RoyalGames.Repository
 {
@@ -69,7 +73,11 @@ namespace RoyalGames.Repository
             jogo.Genero = generos;
 
             List<Plataforma> plataformas = _context.Plataforma
+<<<<<<< HEAD
                 .Where(p => plataformaId.Contains(p.PlataformaID))
+=======
+                .Where(p => plataformaId.Contains(g.PlataformaID))
+>>>>>>> 728cd3bd01a76e008714cb052266bbc1ae2a28aa
                 .ToList();
 
             jogo.Plataforma = plataformas;
@@ -79,7 +87,11 @@ namespace RoyalGames.Repository
             _context.SaveChanges();
         }
 
+<<<<<<< HEAD
         public void Atualizar(Jogo jogo, List<int> generoId, List<int> plataformaId)
+=======
+        public void Atualizar(Jogo jogo)
+>>>>>>> 728cd3bd01a76e008714cb052266bbc1ae2a28aa
         {
             Jogo? jogoBanco = _context.Jogo.FirstOrDefault(j => j.JogoID == jogo.JogoID);
 
@@ -93,7 +105,11 @@ namespace RoyalGames.Repository
             _context.SaveChanges();
         }
 
+<<<<<<< HEAD
         public void Remover(int id)
+=======
+        void Remover(int id)
+>>>>>>> 728cd3bd01a76e008714cb052266bbc1ae2a28aa
         {
             Jogo? jogo = _context.Jogo.FirstOrDefault(jogo => jogo.JogoID == id);
 
@@ -105,10 +121,13 @@ namespace RoyalGames.Repository
             _context.Jogo.Remove(jogo);
             _context.SaveChanges();
         }
+<<<<<<< HEAD
 
         public void Adicionar(CriarJogoDto jogo, string genero)
         {
             throw new NotImplementedException();
         }
+=======
+>>>>>>> 728cd3bd01a76e008714cb052266bbc1ae2a28aa
     }
 }
