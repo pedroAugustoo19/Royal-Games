@@ -10,7 +10,7 @@ namespace RoyalGames.Applications.Services
     {
         private readonly IGeneroRepository _repository;
 
-        public GeneroService(GeneroRepository repository)
+        public GeneroService(IGeneroRepository repository)
         {
             _repository = repository;
         }
@@ -54,19 +54,21 @@ namespace RoyalGames.Applications.Services
             }
         }
 
-        public void Adicionar(CriarGeneroDto generoDto)
+        public void Adicionar(CriarGeneroDto criarDto)
         {
-            ValidarNome(generoDto.Nome);
+            ValidarNome(criarDto.Nome);
             
-            if(_repository.NomeExiste(generoDto.Nome))
+            if(_repository.NomeExiste(criarDto.Nome))
             {
                 throw new DomainException("Nome ja existe");
             }
 
             Genero genero = new Genero
             {
-                Nome = generoDto.Nome,
+                Nome = criarDto.Nome,
             };
+
+            _repository.Adicionar(genero);
         }
 
         public void Atualizar (int id, CriarGeneroDto criarDto)

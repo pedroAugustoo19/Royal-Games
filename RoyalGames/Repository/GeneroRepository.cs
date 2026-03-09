@@ -33,7 +33,8 @@ namespace RoyalGames.Repository
                 consulta = consulta.Where(genero => genero.GeneroID !=  generoIdAtual.Value);
             }
 
-            return consulta.Any();
+            return consulta.Any(g => g.Nome == nome);
+
         }
 
         public void Adicionar(Genero genero)
