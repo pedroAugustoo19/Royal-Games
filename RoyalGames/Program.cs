@@ -47,7 +47,11 @@ namespace RoyalGames
             //Log Alteracao
             builder.Services.AddScoped<ILogAlteracaoJogoRepository, LogAlteracaoJogoRepository>();
             builder.Services.AddScoped<LogAlteracaoJogoService>();
-                
+
+            //Jogo
+            builder.Services.AddScoped<IJogoRepository, JogoRepository>();
+            builder.Services.AddScoped<JogoService>();
+
             //JWT
             builder.Services.AddScoped<GeradorTokenJwt>();
             builder.Services.AddScoped<AutenticacaoService>();

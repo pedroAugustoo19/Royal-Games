@@ -61,7 +61,7 @@ namespace RoyalGames.Applications.Services
 
             if (_repository.NomeExiste(criarDto.Nome))
             {
-                throw new DomainException("Plataforma nao encontrada");
+                throw new DomainException("Plataforma ja existe");
             }
 
             Plataforma plataforma = new Plataforma
@@ -87,6 +87,9 @@ namespace RoyalGames.Applications.Services
             {
                 throw new DomainException("Ja existe outra plataforma com esse nome");
             }
+
+            plataformaBanco.Nome = criarDto.Nome;
+            _repository.Atualizar(plataformaBanco);
         }
 
         public void Remover (int id)
