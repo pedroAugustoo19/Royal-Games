@@ -1,4 +1,7 @@
-﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using RoyalGames.Applications.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.DataProtection.Repositories;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -13,29 +16,28 @@ namespace RoyalGames.Controllers
     public class GeneroController : ControllerBase
     {
         private readonly GeneroService _service;
-
         public GeneroController(GeneroService service)
         {
             _service = service;
         }
 
         [HttpGet]
-        public ActionResult<List<LerGeneroDto>>Listar()
+        public ActionResult<List<LerGeneroDto>> Listar()
         {
             List<LerGeneroDto> generos = _service.Listar();
             return Ok(generos);
         }
 
         [HttpGet("{id}")]
-        public ActionResult <LerGeneroDto> ObterPorId(int id)
+        public ActionResult<LerGeneroDto> ObterPorId(int id)
         {
             LerGeneroDto genero = _service.ObterPorId(id);
 
-            if( genero == null)
+            if (genero == null)
             {
                 return NotFound();
             }
-            
+
             return Ok(genero);
         }
 
@@ -56,8 +58,8 @@ namespace RoyalGames.Controllers
 
         [HttpPut("{id}")]
         [Authorize]
-        public ActionResult Atualizar (int id, CriarGeneroDto criarDto)
-        { 
+        public ActionResult Atualizar(int id, CriarGeneroDto criarDto)
+        {
             try
             {
                 _service.Atualizar(id, criarDto);
@@ -67,7 +69,7 @@ namespace RoyalGames.Controllers
             {
                 return BadRequest(ex.Message);
             }
-              
+
         }
 
         [HttpDelete("{id}")]
@@ -79,9 +81,9 @@ namespace RoyalGames.Controllers
                 _service.Remover(id);
                 return NoContent();
             }
-            catch(DomainException ex)
+            catch (DomainException ex)
             {
-                return BadRequest(ex.Message); 
+                return BadRequest(ex.Message);
             }
         }
     }

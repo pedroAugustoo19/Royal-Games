@@ -19,6 +19,7 @@ namespace RoyalGames.Applications.Conversoes
 
                 Generos = jogo.Genero.Select(categoria => categoria.Nome).ToList(),
 
+
                 UsuarioID = jogo.UsuarioID,
                 UsuarioNome = jogo.Usuario?.Nome,
                 UsuarioEmail = jogo.Usuario?.Email

@@ -1,7 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using RoyalGames.Contexts;
 using RoyalGames.Domains;
+using RoyalGames.DTOs.JogoDto;
 using RoyalGames.Interfaces;
+using RoyalGames.Repository;
 
 namespace RoyalGames.Repository
 {
@@ -79,7 +81,7 @@ namespace RoyalGames.Repository
                 .Include(jogoAux => jogoAux.ClassificacaoIndicativaID)
                 .FirstOrDefault();
 
-            if(jogoAtualizar == null)
+            if (jogoAtualizar == null)
             {
                 return;
             }
@@ -94,7 +96,7 @@ namespace RoyalGames.Repository
             var jogoPlataforma = _context.Plataforma.Where(plataformasAux => plataformaIds.Contains(plataformasAux.PlataformaID)).ToList();
             jogoAtualizar.Plataforma.Clear();
 
-            foreach(var plataformaFor in jogoPlataforma)
+            foreach (var plataformaFor in jogoPlataforma)
                 jogoAtualizar.Plataforma.Add(plataformaFor);
 
             var jogoGenero = _context.Genero.Where(generoAux => generoIds.Contains(generoAux.GeneroID)).ToList();
@@ -104,10 +106,9 @@ namespace RoyalGames.Repository
                 jogoAtualizar.Genero.Add(generoFor);
 
             _context.SaveChanges();
-
         }
 
-        public void Remover (int id)
+        public void Remover(int id)
         {
             Jogo? jogo = _context.Jogo.FirstOrDefault(j => j.JogoID == id);
 
@@ -119,6 +120,5 @@ namespace RoyalGames.Repository
             _context.Jogo.Remove(jogo);
             _context.SaveChanges();
         }
-
     }
 }

@@ -1,17 +1,14 @@
-﻿namespace RoyalGames.DTOs.JogoDto
+using RoyalGames.Domains;
+namespace RoyalGames.DTOs.JogoDto
 {
     public class LerJogoDto
     {
 
         public int JogoID { get; set; }
-
         public string Nome { get; set; } = null!;
-
         public decimal Preco { get; set; }
-
         public string Descricao { get; set; } = null!;
         public IFormFile Imagem { get; set; } = null!;
-
         public bool? StatusJogo { get; set; }
 
         // Generos

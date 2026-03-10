@@ -1,4 +1,6 @@
-﻿namespace RoyalGames.DTOs.JogoDto
+﻿using RoyalGames.Domains;
+
+namespace RoyalGames.DTOs.JogoDto
 {
     public class AtualizarJogoDto
     {
@@ -13,8 +15,11 @@
         public List<int> GeneroIds { get; set; } = new();
         public List<int> PlataformaIds { get; set; } = new();
 
-        public bool? StatusProduto { get; set; }
 
+        public string Plataforma { get; set; } = null!;
 
+        public string Genero { get; set; } = null!;
+
+        public bool? StatusJogo{ get; set; }
     }
 }

@@ -1,5 +1,4 @@
 ﻿using RoyalGames.Domains;
-
 namespace RoyalGames.Interfaces
 {
     public interface IJogoRepository

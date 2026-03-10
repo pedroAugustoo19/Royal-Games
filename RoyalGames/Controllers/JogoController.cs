@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using RoyalGames.Applications.Services;
@@ -13,11 +13,13 @@ namespace RoyalGames.Controllers
     public class JogoController : ControllerBase
     {
         private readonly JogoService _service;
+        public JogoController(JogoService service)
+        {
+            _service = service;
+        }
 
         private int ObterUsuarioIdLogado()
         {
-            // busca no token/claims o valor armazenado como id do usuário
-            // ClaimTypes.NameIdentifier geralmente guarda o ID do usuário no JWT
             string? idTexto = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
             if (string.IsNullOrWhiteSpace(idTexto))
@@ -31,10 +33,6 @@ namespace RoyalGames.Controllers
             return int.Parse(idTexto);
         }
 
-        public JogoController(JogoService service)
-        {
-            _service = service; 
-        }
 
         [HttpGet]
         public ActionResult<List<LerJogoDto>> Listar()
@@ -45,7 +43,7 @@ namespace RoyalGames.Controllers
         }
 
         [HttpGet("{id}")]
-        public ActionResult <LerJogoDto> ObterPorId(int id)
+        public ActionResult<LerJogoDto> ObterPorId(int id)
         {
             try
             {
@@ -55,6 +53,21 @@ namespace RoyalGames.Controllers
             catch (DomainException ex)
             {
                 return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpGet("{id}/imagem")]
+        public ActionResult ObterImagem(int id)
+        {
+            try
+            {
+                var imagem = _service.ObterImagem(id);
+
+                return File(imagem, "image/jpeg");
+            }
+            catch (DomainException ex)
+            {
+                return NotFound(ex.Message);
             }
         }
 
@@ -78,8 +91,9 @@ namespace RoyalGames.Controllers
         }
 
         [HttpPut("{id}")]
+        [Consumes("multipart/form-data")]
         [Authorize]
-        public ActionResult Atualizar (int id, [FromForm] AtualizarJogoDto jogoDto)
+        public ActionResult Atualizar(int id, [FromForm] AtualizarJogoDto jogoDto)
         {
             try
             {
@@ -92,7 +106,7 @@ namespace RoyalGames.Controllers
             }
         }
 
-        [HttpDelete]
+        [HttpDelete("{id}")]
         [Authorize]
         public ActionResult Remover(int id)
         {
@@ -101,7 +115,7 @@ namespace RoyalGames.Controllers
                 _service.Remover(id);
                 return NoContent();
             }
-            catch(DomainException ex)
+            catch (DomainException ex)
             {
                 return BadRequest(ex.Message);
             }
